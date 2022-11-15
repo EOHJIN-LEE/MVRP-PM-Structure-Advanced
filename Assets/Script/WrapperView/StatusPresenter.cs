@@ -24,55 +24,55 @@ public class StatusPresenter : CharacterDetailPresenterBase
     {
         Action setCallback = () =>
         {
-            Debug.LogError(1);
             SetButtonsCallback();
             SetSelectCallback();
         };
         Action setInitialValue = () =>
         {
-            Debug.LogError(2);
             SetButtonInitialValue();
         };
 
         var orderlyInitialize = setCallback.Compose(setInitialValue);
         orderlyInitialize();
-    }
 
-    private void SetButtonsCallback()
-    {
-        _characterButtons = CreateButton(_database.StatusModels);
-        _characterButtons.ForEach(button =>
+        #region Method
+        void SetButtonsCallback()
         {
-            button.GetButtonAsObservable().Subscribe(model =>
+            _characterButtons = CreateButton(_database.StatusModels);
+            _characterButtons.ForEach(button =>
             {
-                _selectedStatusModel.OnNext(model);
-            }).AddTo(this);
-        });
-    }
-
-    private void SetSelectCallback()
-    {
-        _selectedStatusModel.Subscribe(model =>
-        {
-            title.text = model.name;
-            description.text = model.description;
-        }).AddTo(this);
-    }
-
-    private void SetButtonInitialValue()
-    {
-        _characterButtons.FirstOrDefault()?.Click();
-    }
-
-    private List<CharacterButton> CreateButton(List<StatusModel> statusModels)
-    {
-        var characterButtons = new List<CharacterButton>();
-        foreach (var statusModel in statusModels)
-        {
-            var characterButton = Instantiate(characterButtonPrefab, characterButtonsParent);
-            characterButton.Set(statusModel);
-            characterButtons.Add(characterButton);
+                button.GetButtonAsObservable().Subscribe(model =>
+                {
+                    _selectedStatusModel.OnNext(model);
+                }).AddTo(this);
+            });
+            
+            List<CharacterButton> CreateButton(List<StatusModel> statusModels)
+            {
+                var characterButtons = new List<CharacterButton>();
+                foreach (var statusModel in statusModels)
+                {
+                    var characterButton = Instantiate(characterButtonPrefab, characterButtonsParent);
+                    characterButton.Set(statusModel);
+                    characterButtons.Add(characterButton);
+                }
+                return characterButtons;
+            }
         }
-        return characterButtons;
+        
+        void SetSelectCallback()
+        {
+            _selectedStatusModel.Subscribe(model =>
+            {
+                title.text = model.name;
+                description.text = model.description;
+            }).AddTo(this);
+        }
+        
+        void SetButtonInitialValue()
+        {
+            _characterButtons.FirstOrDefault()?.Click();
+        }
+        #endregion
     }
 }
