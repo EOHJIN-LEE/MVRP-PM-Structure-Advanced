@@ -22,31 +22,9 @@ public class StatusPresenter : CharacterDetailPresenterBase
 
     protected override void Initialize()
     {
-        #region 理想
-        var setButtonCallback = new Method(SetButtonsCallback);
-        var setSelectCallback = new Method(SetSelectCallback);
-        var setButtonInitialValue = new Method(SetButtonInitialValue);
-        (setButtonInitialValue * (setButtonCallback + setSelectCallback)).Execute();
-        #endregion
-
-        #region 普通
-        Action setCallback = () =>
-        {
-            SetButtonsCallback();
-            SetSelectCallback();
-        };
-        Action setInitialValue = () =>
-        {
-            SetButtonInitialValue();
-        };
-        var orderlyInitialize = setCallback.Compose(setInitialValue);
-        orderlyInitialize();
-        #endregion
-        
-        
-        // SetButtonsCallback();
-        // SetSelectCallback();
-        // SetButtonInitialValue();
+        SetButtonsCallback();
+        SetSelectCallback();
+        SetButtonInitialValue();
 
         #region Method
         void SetButtonsCallback()
