@@ -8,5 +8,5 @@ public class CharacterDetailStateModel
 public enum CharacterDetailState
 {
     Status,
-    DescriptionChange
+    Skill
 }

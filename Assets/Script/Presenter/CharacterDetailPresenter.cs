@@ -19,7 +19,7 @@ public class CharacterDetailPresenter : MonoBehaviour
         
         gearButton.OnClickAsObservable().Subscribe(_ =>
         {
-            characterDetailStateModel.state.OnNext(CharacterDetailState.DescriptionChange);
+            characterDetailStateModel.state.OnNext(CharacterDetailState.Skill);
         }).AddTo(this);
         
         //初期設定
